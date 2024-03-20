@@ -1,0 +1,44 @@
+{
+  "name": "lunadb-prosemirror",
+  "version": "0.1.0",
+  "description": "Prosemirror plugin for syncing document state with LunaDB",
+  "repository": "https://github.com/lunadb-io/lunadb-prosemirror",
+  "license": "MIT",
+  "private": false,
+  "packageManager": "yarn@4.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist/**"
+  ],
+  "devDependencies": {
+    "nock": "^14.0.0-beta.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.1"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest",
+    "prepare": "tsup"
+  },
+  "dependenciesMeta": {
+    "prettier@3.2.5": {
+      "unplugged": true
+    }
+  },
+  "tsup": {
+    "format": "esm",
+    "entry": [
+      "lib/index.ts"
+    ],
+    "dts": {
+      "entry": "lib/index.ts"
+    },
+    "splitting": false,
+    "clean": true,
+    "sourcemap": "inline"
+  }
+}
