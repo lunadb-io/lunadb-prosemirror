@@ -2,7 +2,10 @@
   "name": "@lunadb-io/lunadb-prosemirror",
   "version": "0.1.0",
   "description": "Prosemirror plugin for syncing document state with LunaDB",
-  "repository": "https://github.com/lunadb-io/lunadb-prosemirror",
+  "homepage": "https://github.com/lunadb-io/lunadb-prosemirror.git",
+  "repository": {
+    "url": "git+https://github.com/lunadb-io/lunadb-prosemirror.git"
+  },
   "license": "MIT",
   "packageManager": "yarn@4.1.0",
   "type": "module",
