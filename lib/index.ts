@@ -1,16 +1,15 @@
+import type LunaDBAPIClientBridge from "@lunadb-io/lunadb-client-js";
 import {
   DocumentTransaction,
   type LunaDBDocument,
 } from "@lunadb-io/lunadb-client-js";
-import type LunaDBAPIClientBridge from "@lunadb-io/lunadb-client-js";
-import * as jsondiffpatch from "jsondiffpatch";
 import DiffMatchPatch from "diff-match-patch";
-import {
+import * as jsondiffpatch from "jsondiffpatch";
+import BaseFormatter, {
   BaseFormatterContext,
   DeltaType,
   NodeType,
 } from "jsondiffpatch/formatters/base";
-import BaseFormatter from "jsondiffpatch/formatters/base";
 import { Node, Schema } from "prosemirror-model";
 import { Plugin, type EditorState } from "prosemirror-state";
 
