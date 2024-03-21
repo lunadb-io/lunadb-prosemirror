@@ -1646,6 +1646,7 @@ __metadata:
   resolution: "lunadb-prosemirror@workspace:."
   dependencies:
     "@lunadb-io/lunadb-client-js": "npm:^0.1.4"
+    "@types/diff-match-patch": "npm:^1.0.36"
     diff-match-patch: "npm:^1.0.5"
     jsondiffpatch: "npm:^0.6.0"
     nock: "npm:^14.0.0-beta.2"

@@ -3,7 +3,11 @@ import {
   DocumentTransaction,
   type LunaDBDocument,
 } from "@lunadb-io/lunadb-client-js";
-import DiffMatchPatch from "diff-match-patch";
+import DiffMatchPatch, {
+  DIFF_DELETE,
+  DIFF_EQUAL,
+  DIFF_INSERT,
+} from "diff-match-patch";
 import * as jsondiffpatch from "jsondiffpatch";
 import BaseFormatter, {
   BaseFormatterContext,
@@ -19,7 +23,7 @@ const JDPInstance = jsondiffpatch.create({
   },
   textDiff: {
     diffMatchPatch: DiffMatchPatch,
-    minLength: 0,
+    minLength: 1,
   },
 });
 
@@ -166,10 +170,31 @@ class LunaDBTransactionFormatter extends BaseFormatter<
     key: string | undefined,
     leftKey: string | number | undefined
   ): void {
-    let rawDiff = new DiffMatchPatch().patch_fromText(delta[0]);
-    console.log(rawDiff);
-    // todo
-    // rawDiff.forEach((step) => {});
+    let dmp = new DiffMatchPatch();
+    let rawDiff = dmp.patch_fromText(delta[0]);
+    rawDiff.forEach((patch) => {
+      let idx = 0;
+      // the type resolution here for rawDiff is wrong,
+      // points to a function of the same name as the type patch_obj
+      // @ts-ignore
+      patch.diffs.forEach((diff: Diff) => {
+        switch (diff[0]) {
+          case DIFF_EQUAL:
+            idx += diff[1].length;
+            break;
+          case DIFF_INSERT:
+            context.txn.stringInsert(context.currentPath(), idx, diff[1]);
+            break;
+          case DIFF_DELETE:
+            context.txn.stringRemove(
+              context.currentPath(),
+              idx,
+              diff[1].length
+            );
+            break;
+        }
+      });
+    });
   }
 
   format_node(
